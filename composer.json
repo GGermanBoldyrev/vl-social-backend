@@ -1,0 +1,15 @@
+{
+    "name": "germanboldyrev/vk-social-backend",
+    "autoload": {
+        "psr-4": {
+            "Germanboldyrev\\VkSocialBackend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GGermanBoldyrev",
+            "email": "boldyrev_german@mail.ru"
+        }
+    ],
+    "require": {}
+}

@@ -1,4 +1,7 @@
 <?php
 
-echo "name";
-echo phpinfo();
+use src\core\Database;
+
+$config = require "config.php";
+$db = new Database($config);
+$router = new Router();
