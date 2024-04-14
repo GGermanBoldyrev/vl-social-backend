@@ -19,6 +19,7 @@ $router = new Router();
 
 /*Routes*/
 $router->addRoute(HttpMethod::GET, "/posts", [PostController::class, 'index']);
+$router->addRoute(HttpMethod::GET, "/post", [PostController::class, 'show']);
 
 /*Enter point*/
 $router->route($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
