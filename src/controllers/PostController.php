@@ -64,6 +64,23 @@ class PostController implements ControllerInterface
         }
     }
 
+    public function userPosts(array $params, array $requestData): void
+    {
+        $id = $params["author_id"];
+        $sql = "SELECT * FROM posts WHERE author_id = :author_id";
+        $statement = Database::query($sql, array(":author_id" => $id));
+        $res = $statement->fetchAll();
+        if ($res) {
+            // Post was created successfully
+            http_response_code(200);
+            echo json_encode($res);
+        } else {
+            // Failed to create post
+            http_response_code(400);
+            echo json_encode(['message' => 'Posts Not Found']);
+        }
+    }
+
     public function destroy(array $params): void
     {
         $deleted = Database::delete('posts', $params);

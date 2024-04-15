@@ -29,6 +29,14 @@ class Router implements RouterInterface
             $requestData = json_decode($jsonData, true);
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            header('Access-Control-Allow-Origin: http://localhost:5173');
+            header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+            header('Access-Control-Allow-Headers: Content-Type');
+            http_response_code(200); // Respond with OK status for preflight request
+            exit;
+        }
+
         /* Route without params exists */
         if (isset($this->routes[$method][$parsedUrl['path']])) {
             $callback = $this->routes[$method][$parsedUrl['path']];
@@ -37,10 +45,16 @@ class Router implements RouterInterface
             }
             // Set header to return JSON response
             header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+            header('Access-Control-Allow-Headers: Content-Type');
             call_user_func($callback, $params, $requestData);
         } else {
             http_response_code(404);
             header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+            header('Access-Control-Allow-Headers: Content-Type');
             echo json_encode(array("message" => "Not Found"));
         }
     }
