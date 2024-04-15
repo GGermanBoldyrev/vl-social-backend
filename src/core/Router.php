@@ -16,13 +16,19 @@ class Router implements RouterInterface
 
     public function route(string $method, string $path): void
     {
-        /* Make path without query params */
         $parsedUrl = parse_url($path);
-        /* Parse params */
         $params = [];
+        $requestData = [];
+
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $params);
         }
+
+        if ($method == 'POST') {
+            $jsonData = file_get_contents('php://input');
+            $requestData = json_decode($jsonData, true);
+        }
+
         /* Route without params exists */
         if (isset($this->routes[$method][$parsedUrl['path']])) {
             $callback = $this->routes[$method][$parsedUrl['path']];
@@ -31,7 +37,7 @@ class Router implements RouterInterface
             }
             // Set header to return JSON response
             header('Content-Type: application/json');
-            call_user_func($callback, $params);
+            call_user_func($callback, $params, $requestData);
         } else {
             http_response_code(404);
             header('Content-Type: application/json');

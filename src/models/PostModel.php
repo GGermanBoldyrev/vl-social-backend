@@ -16,13 +16,14 @@ class PostModel implements ModelInterface
     private array $commentsId;
 
     public function __construct(
-        int $id,
-        int $authorId,
-        string $title,
-        string $text,
+        int      $id,
+        int      $authorId,
+        string   $title,
+        string   $text,
         DateTime $timestamp,
-        int $likes,
-        array $commentsId)
+        int      $likes,
+        array    $commentsId
+    )
     {
         $this->id = $id;
         $this->authorId = $authorId;
@@ -31,30 +32,5 @@ class PostModel implements ModelInterface
         $this->timestamp = $timestamp;
         $this->likes = $likes;
         $this->commentsId = $commentsId;
-    }
-
-    public function getById($id)
-    {
-        // TODO: Implement getById() method.
-    }
-
-    public function getAll()
-    {
-        // TODO: Implement getAll() method.
-    }
-
-    public function create(array $data)
-    {
-        // TODO: Implement create() method.
-    }
-
-    public function update($id, array $data)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete($id)
-    {
-        // TODO: Implement delete() method.
     }
 }
